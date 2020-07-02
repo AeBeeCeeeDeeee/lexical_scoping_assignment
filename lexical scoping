@@ -1,0 +1,32 @@
+echo "# lexical_scoping_assignment" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/AeBeeCeeeDeeee/lexical_scoping_assignment.git
+git push -u origin master
+                
+                
+makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
+   s <- NULL
+   set <- function(y) {
+     x <<- y
+     s <<- NULL
+   }
+   get <- function() x
+   set_solve <- function(solve) s <<- solve
+   get_solve <- function() s
+   list(set = set, get = get,
+        set_solve = set_solve,
+        get_solve = get_solve)
+ }
+ cacheSolve <- function(x, ...) {
+   s <- x$get_solve()
+   if(!is.null(s)) {
+     message("getting inversed matrix")
+     return(s)
+   }
+   data <- x$get()
+   s <- solve(data, ...)
+   x$set_solve(s)
+   s
+ }               
